@@ -1,0 +1,23 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: {{ include "app-pipeline.fullname" . }}
+  namespace: tekton-pipelines
+spec:
+  serviceAccountName: tekton-github-triggers
+  triggers:
+  - name: github-listener
+    interceptors:
+    - github:
+        secretRef:
+          secretName: {{ include "app-pipeline.fullname" . }}-webhook-secret
+          secretKey: secretToken
+        eventTypes:
+        - push
+    - cel:
+        filter: "body.ref == 'refs/heads/master'"
+    bindings:
+    - ref: {{ include "app-pipeline.fullname" . }}
+    template:
+      name: {{ include "app-pipeline.fullname" . }}
+---

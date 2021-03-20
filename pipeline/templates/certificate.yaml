@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ include "app-pipeline.fullname" . }}
+  namespace: {{ .Values.certificate.namespace }}
+spec:
+  secretName: {{ include "app-pipeline.fullname" . }}-cert
+  issuerRef:
+    name: {{ .Values.certificate.issuer }}
+    kind: {{ .Values.certificate.kind }}
+  commonName: {{ .Values.certificate.commonName }}
+  dnsNames:
+  {{- toYaml .Values.certificate.dnsNames | nindent 2 }}
+---

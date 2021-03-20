@@ -1,0 +1,43 @@
+# Default values for ms-demo.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+certificate:
+  issuer: "letsencrypt-prod-istio"
+  kind: "ClusterIssuer"
+  namespace: "istio-system"
+  commonName: "tekton-triggers.bahkuyt.tech"
+  dnsNames:
+  - "tekton-triggers.bahkuyt.tech"
+
+istio:
+  port: 443
+  istioSelector: "ingressgateway"
+
+registry:
+  url: "https://index.docker.io/v2/"
+  registryVaultSecret: "kes/data/app/registry"
+  usernameProperty: "username"
+  passwordProperty: "password"
+  emailProperty: "email"
+
+pipelineRun:
+  appGitUrl: "git@github.com:bahkuyt/hello-code-with-quarkus.git"
+  configGitUrl: "git@github.com:bahkuyt/k8s_and_vault_test.git"
+  appImage: "bahkuyt/hello-code-with-quarkus"
+
+tekton:
+  deployNamespace: demo
+  gitRevision: master
+
+github:
+  githubVaultSecret: "kes/data/app/github"
+  privateKeyProperty: "privateKey"
+  secretProperty: "secretToken"
+
+argocd:
+  argocdVaultSecret: "kes/data/app/argocd"
+  usernameProperty: "username"
+  passwordProperty: "password"
+  appname: "ms-demo"
+  url: argocd.bahkuyt.tech

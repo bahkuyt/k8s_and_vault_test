@@ -1,0 +1,44 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: {{ include "app-pipeline.fullname" . }}
+  namespace: tekton-pipelines
+spec:
+  params:
+  - name: buildRevision
+    description: The Git commit revision
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: {{ include "app-pipeline.fullname" . }}-build-deploy-
+    spec:
+      pipelineRef:
+        name: {{ include "app-pipeline.fullname" . }}
+      serviceAccountName: {{ include "app-pipeline.fullname" . }}
+      params:
+      - name: buildRevision
+        value: $(tt.params.buildRevision)
+      - name: appGitUrl
+        value: {{ .Values.pipelineRun.appGitUrl }}
+      - name: configGitUrl
+        value: {{ .Values.pipelineRun.configGitUrl }}
+      - name: appImage
+        value: {{ .Values.pipelineRun.appImage }}
+      workspaces:
+      - name: app-source
+        emptyDir: {}
+      - name: config-source
+        emptyDir: {}
+---
+
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: {{ include "app-pipeline.fullname" . }}
+  namespace: tekton-pipelines
+spec:
+  params:
+  - name: buildRevision
+    value: $(body.head_commit.id)
+---

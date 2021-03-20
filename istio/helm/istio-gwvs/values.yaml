@@ -1,0 +1,15 @@
+commonName: grafana.bahkuyt.tech
+dnsNames:
+  - kiali.bahkuyt.tech
+  - tracing.bahkuyt.tech
+  - grafana.bahkuyt.tech
+
+kiali:
+  dnsName:
+    - kiali.bahkuyt.tech
+tracing:
+  dnsName:
+    - tracing.bahkuyt.tech
+istioGrafana:
+  dnsName:
+    - grafana.bahkuyt.tech

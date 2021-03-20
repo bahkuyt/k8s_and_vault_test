@@ -1,0 +1,12 @@
+
+vault:
+  role_name: kes
+  auth_path: kes
+
+kes:
+  namespace: kes
+
+apps:
+  repoUrl: git@github.com:bahkuyt/k8s_and_vault_test.git
+  targetRevision: HEAD
+  path: apps

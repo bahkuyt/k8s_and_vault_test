@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: hello-code-with-quarkus-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "hello.bahkuyt.tech"
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hello-code-with-quarkus-gateway
+spec:
+  hosts:
+  - "hello.bahkuyt.tech"
+  gateways:
+  - hello-code-with-quarkus-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/resteasy"
+    - uri:
+        prefix: "/health"      
+    route:
+    - destination:
+        host: hello-code-with-quarkus
+        subset: v1
+        port:
+          number: 8080
+---
+

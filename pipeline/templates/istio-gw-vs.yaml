@@ -1,0 +1,36 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "app-pipeline.fullname" . }}
+  namespace: tekton-pipelines
+spec:
+  selector:
+    istio: {{ .Values.istio.istioSelector }}
+  servers:
+  - port:
+      number: {{ .Values.istio.port }}
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: "{{ include "app-pipeline.fullname" . }}-cert"
+    hosts:
+      {{- toYaml .Values.certificate.dnsNames | nindent 4 }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "app-pipeline.fullname" . }}
+  namespace: tekton-pipelines
+spec:
+  hosts:
+    {{- toYaml .Values.certificate.dnsNames | nindent 4 }} 
+  gateways:
+  - {{ include "app-pipeline.fullname" . }}
+  http:
+  - route:
+    - destination:
+        host: el-{{ include "app-pipeline.fullname" . }}
+        port:
+          number: 8080

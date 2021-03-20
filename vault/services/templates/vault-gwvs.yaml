@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: vault-gateway
+  namespace: vault
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: "vault-cert"
+    hosts:
+    {{- toYaml .Values.dnsNames | nindent 4 }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vault-virtualservice
+  namespace: vault
+spec:
+  hosts:
+  {{- toYaml .Values.dnsNames | nindent 2 }}
+  gateways:
+  - vault-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 8200
+        host: vault
+---

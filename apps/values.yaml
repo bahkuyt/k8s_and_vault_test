@@ -1,9 +1,9 @@
 
 appPipelines:
-  repoUrl: git@github.com:bahkuyt/k8s_and_vault_test.git
+  repoUrl: https://github.com/bahkuyt/k8s_and_vault_test.git
   path: pipeline
   targetRevision: HEAD
 app:
-  repoUrl: git@github.com:bahkuyt/k8s_and_vault_test.git
+  repoUrl: https://github.com/bahkuyt/k8s_and_vault_test.git
   path: production
   targetRevision: HEAD

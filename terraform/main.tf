@@ -45,3 +45,8 @@ module "vault_config" {
 
   module_depends_on = [module.base_tools]
 }
+module "argocd_tekton" {
+  source = "./modules/argocd_tekton"
+  module_depends_on = [module.vault_config]
+
+}

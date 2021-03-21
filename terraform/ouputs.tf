@@ -1,7 +1,7 @@
-/* output "argocd-initial-password" {
-  value       = module.base_tools.argocd_initial_password
+output "argocd-initial-password" {
+  value       = module.argocd_tekton.argocd_initial_password
   description = "Initial password for Argo CD, should be changed once Argo is up"
-} */
+} 
 /* output "connect-command" {
   value       = module.aks_cluster.connect_command
   description = "Get kubeconfig for cluster"

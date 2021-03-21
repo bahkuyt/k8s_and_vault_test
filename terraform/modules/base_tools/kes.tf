@@ -3,7 +3,7 @@ resource "null_resource" "kes_namespace" {
     command = "kubectl apply -f ${path.module}/files/kes-namespace.yaml"
   }
   // terraform hack to make this module wait until prerequisite modules are complete
-  depends_on = [null_resource.raft_join_wait]
+  depends_on = [null_resource.vault_raft]
 }
 
 // install chart in local path, the path exists outside the tf module and is part of the repository

@@ -3,6 +3,8 @@ kind: EventListener
 metadata:
   name: {{ include "app-pipeline.fullname" . }}
   namespace: tekton-pipelines
+  labels:
+    {{- include "app-pipeline.labels" . | nindent 4 }}  
 spec:
   serviceAccountName: tekton-github-triggers
   triggers:

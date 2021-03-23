@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: vault-cert
   issuerRef:
-    name: letsencrypt-prod-istio
+    name: letsencrypt-staging-istio
     kind: ClusterIssuer
   commonName: {{ .Values.commonName }}
   dnsNames:

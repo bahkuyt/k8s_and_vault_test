@@ -2,6 +2,8 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: {{ include "app-pipeline.fullname" . }}
+  labels:
+    {{- include "app-pipeline.labels" . | nindent 4 }}  
 spec:
   params:
   - name: buildRevision

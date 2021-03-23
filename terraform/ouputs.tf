@@ -12,6 +12,6 @@ output "argocd-initial-password" {
   description = "Forward port https://localhost:8080 to port 443 on argocd-server"
 }*/
 
-/*output "vault-token" {
-  value = module.vault_config.vault_token
-}*/
+output "vault-token" {
+  value = module.base_tools.vault_token
+}

@@ -120,7 +120,7 @@ resource "null_resource" "raft_join_wait" {
   depends_on = [null_resource.vault_login]
 }
 
-resource "null_resource" "vault_raft" {
+ resource "null_resource" "vault_raft" {
   provisioner "local-exec" {
     command = "kubectl -n ${var.vault_namespace} exec -it vault-1 -- vault operator raft join http://vault-0.vault-internal:8200"
   }

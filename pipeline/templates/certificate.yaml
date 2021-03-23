@@ -4,6 +4,8 @@ kind: Certificate
 metadata:
   name: {{ include "app-pipeline.fullname" . }}
   namespace: {{ .Values.certificate.namespace }}
+  labels:
+    {{- include "app-pipeline.labels" . | nindent 4 }}  
 spec:
   secretName: {{ include "app-pipeline.fullname" . }}-cert
   issuerRef:

@@ -17,7 +17,7 @@ spec:
     - cel:
         filter: "body.ref == 'refs/heads/master'"
     bindings:
-    - ref: {{ include "app-pipeline.fullname" . }}
+    - ref: app-pipeline
     template:
-      name: {{ include "app-pipeline.fullname" . }}
+      name: app-pipeline
 ---

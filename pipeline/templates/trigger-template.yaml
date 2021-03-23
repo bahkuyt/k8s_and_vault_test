@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: {{ include "app-pipeline.fullname" . }}
+  name: app-pipeline
   namespace: tekton-pipelines
   labels:
     {{- include "app-pipeline.labels" . | nindent 4 }}    
@@ -37,7 +37,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: {{ include "app-pipeline.fullname" . }}
+  name: app-pipeline
   labels:
     {{- include "app-pipeline.labels" . | nindent 4 }}    
   namespace: tekton-pipelines

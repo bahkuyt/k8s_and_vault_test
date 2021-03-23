@@ -4,6 +4,10 @@ kind: Application
 metadata:
   name: app-of-apps
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   destination:
     namespace: argocd

@@ -14,10 +14,10 @@ spec:
           secretKey: secretToken
         eventTypes:
         - push
-#    - cel:
-#        filter: "body.ref == 'refs/heads/master'"
+    - cel:
+        filter: "body.ref == 'refs/heads/master'"
     bindings:
-    - ref: app-pipeline
+    - name: app-pipeline
     template:
       name: app-pipeline
 ---

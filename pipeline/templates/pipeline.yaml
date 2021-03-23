@@ -1,9 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: {{ include "app-pipeline.fullname" . }}
-  labels:
-    {{- include "app-pipeline.labels" . | nindent 4 }}  
+  name: app-pipeline
 spec:
   params:
   - name: buildRevision
@@ -21,7 +19,7 @@ spec:
   tasks:
   - name: build-java-app
     taskRef:
-      name: {{ include "app-pipeline.fullname" . }}-build-java-app
+      name: app-pipeline-build-java-app
     params:
     - name: buildRevision
       value: $(params.buildRevision)
@@ -71,7 +69,7 @@ spec:
 
   - name: deploy-prod
     taskRef:
-      name: {{ include "app-pipeline.fullname" . }}-deploy
+      name: app-pipeline-deploy
     runAfter:
     - build-java-app
     params:

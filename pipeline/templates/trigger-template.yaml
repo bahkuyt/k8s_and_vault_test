@@ -2,9 +2,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: app-pipeline
-  namespace: tekton-pipelines
-  labels:
-    {{- include "app-pipeline.labels" . | nindent 4 }}    
+  namespace: tekton-pipelines   
 spec:
   params:
   - name: buildRevision
@@ -13,11 +11,11 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: {{ include "app-pipeline.fullname" . }}-build-deploy-
+      generateName: app-pipeline-build-deploy-
     spec:
       pipelineRef:
-        name: {{ include "app-pipeline.fullname" . }}
-      serviceAccountName: {{ include "app-pipeline.fullname" . }}
+        name: app-pipeline
+      serviceAccountName: app-pipeline
       params:
       - name: buildRevision
         value: $(tt.params.buildRevision)
@@ -37,9 +35,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: app-pipeline
-  labels:
-    {{- include "app-pipeline.labels" . | nindent 4 }}    
+  name: app-pipeline    
   namespace: tekton-pipelines
 spec:
   params:

@@ -1,10 +1,8 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: {{ include "app-pipeline.fullname" . }}
-  namespace: tekton-pipelines
-  labels:
-    {{- include "app-pipeline.labels" . | nindent 4 }}  
+  name: app-pipeline
+  namespace: tekton-pipelines 
 spec:
   serviceAccountName: tekton-github-triggers
   triggers:
@@ -12,7 +10,7 @@ spec:
     interceptors:
     - github:
         secretRef:
-          secretName: {{ include "app-pipeline.fullname" . }}-webhook-secret
+          secretName: app-pipeline-webhook-secret
           secretKey: secretToken
         eventTypes:
         - push

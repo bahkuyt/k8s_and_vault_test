@@ -2,12 +2,10 @@
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
-  name: {{ include "app-pipeline.fullname" . }}
+  name: app-pipeline
   namespace: {{ .Values.certificate.namespace }}
-  labels:
-    {{- include "app-pipeline.labels" . | nindent 4 }}  
 spec:
-  secretName: {{ include "app-pipeline.fullname" . }}-cert
+  secretName: app-pipeline-cert
   issuerRef:
     name: {{ .Values.certificate.issuer }}
     kind: {{ .Values.certificate.kind }}

@@ -9,7 +9,7 @@ resource "null_resource" "kes_namespace" {
 // install chart in local path, the path exists outside the tf module and is part of the repository
 resource "null_resource" "kes_install" {
   provisioner "local-exec" {
-    command = "helm install kes ${path.module}/../../../kubernetes-external-secrets --set env.VAULT_ADDR=${var.vault_addr} --set kes.namespace=${var.kes_namespace} -n ${var.kes_namespace}"
+    command = "helm install kes ${path.module}/../../../kubernetes-external-secrets --set env.VAULT_ADDR=${var.vault_addr} --set env.TLS_SKIP_VERIFY=true --set kes.namespace=${var.kes_namespace} -n ${var.kes_namespace}"
   }
   depends_on = [null_resource.kes_namespace]
 }

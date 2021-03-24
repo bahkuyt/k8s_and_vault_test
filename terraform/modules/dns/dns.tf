@@ -76,3 +76,10 @@ resource "azurerm_dns_a_record" "tekton-triggers" {
   ttl                 = 300
   records             = [var.ingress_external_ip]
 }
+resource "azurerm_dns_a_record" "tekton" {
+  name                = "tekton"
+  zone_name           = data.azurerm_dns_zone.dns.name
+  resource_group_name = data.azurerm_resource_group.rg.name
+  ttl                 = 300
+  records             = [var.ingress_external_ip]
+}

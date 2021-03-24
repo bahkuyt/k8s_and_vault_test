@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: tekton-cert
+  namespace: tekton-pipelines
+spec:
+  secretName: tekton-secret
+  issuerRef:
+    name: letsencrypt-staging-istio
+    kind: ClusterIssuer
+  commonName: tekton.bahkuyt.tech
+  dnsNames:
+  - tekton.bahkuyt.tech

@@ -12,11 +12,18 @@ resource "null_resource" "argocd_namespace" {
   depends_on = [null_resource.module_depends_on]
 }
 
+resource "null_resource" "tekton_namespace" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f ${path.module}/files/tekton-namespace.yaml"
+  }
+  depends_on = [null_resource.argocd_namespace]
+}
+
 resource "null_resource" "tekton_install" {
   provisioner "local-exec" {
     command = "kubectl apply -f ${path.module}/../../../tekton"
   }
-  depends_on = [null_resource.argocd_namespace]
+  depends_on = [null_resource.tekton_namespace]
 }
 
 // use helm to install argocd, secrets, and initial app-of-apps application

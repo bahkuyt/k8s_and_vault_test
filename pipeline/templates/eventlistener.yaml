@@ -4,7 +4,7 @@ metadata:
   name: app-pipeline
   namespace: tekton-pipelines 
 spec:
-  serviceAccountName: tekton-github-triggers
+  serviceAccountName: app-pipeline-tekton-github-triggers
   triggers:
   - name: github-listener
     interceptors:
